@@ -7,7 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import './components.css';
+import './components.scss';
 
 class NavMenu extends React.Component {
   constructor(props) {

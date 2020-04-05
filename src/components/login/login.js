@@ -55,11 +55,8 @@ export class Login extends React.Component {
 
 
       if(status > 0) {
-        this.setState({id: status});
-        this.props.history.push({
-          pathname: '/search',
-          state: { id: this.state.id }
-        });
+        localStorage.setItem('id', status);
+        this.props.history.push("/")
       }
       
     });

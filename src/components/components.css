@@ -1,0 +1,12 @@
+.root {
+    flex: 1;
+}
+
+.navTitle {
+    flex-grow: 1;
+}
+
+.container {
+    flex: 1
+}
+

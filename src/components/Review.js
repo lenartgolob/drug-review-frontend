@@ -1,19 +1,19 @@
 import React from "react";
+import NavMenu from "./NavMenu";
+
 
 class Review extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.location.state.id
-
     };
   }
 
   render() {
     return (
-    <div>
-      <h1>Search pag!</h1>
-      <p>{this.state.id}</p>
+    <div className="container">
+      <NavMenu />
+      <h1>Review page!</h1>
     </div>
     );
   }

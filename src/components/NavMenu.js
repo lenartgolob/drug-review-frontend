@@ -3,11 +3,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router';
 import './components.scss';
 
 class NavMenu extends React.Component {
@@ -18,6 +19,7 @@ class NavMenu extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.isLoggedIn = this.isLoggedIn.bind(this);
+    this.handleHome = this.handleHome.bind(this);
     this.Login = this.Login.bind(this);
     this.Logout = this.Logout.bind(this);
 
@@ -25,6 +27,7 @@ class NavMenu extends React.Component {
     this.state = {
         anchorEl: null,
         auth: true,
+        redirect: false
 
     };
   }
@@ -39,6 +42,7 @@ class NavMenu extends React.Component {
     this.setState({
         anchorEl: event.currentTarget
       });
+      console.log("neki")
   };
 
   handleClose = () => {
@@ -48,10 +52,15 @@ class NavMenu extends React.Component {
   };
 
   handleLogout = () => {
+    this.setState({	  
+      anchorEl: null	
+    });	
+  localStorage.clear();
   };
 
-  handleLogin = () => {
-  };
+  handleHome() {
+    this.setState({ redirect: true })
+  }
 
   Logout() {
     return <div>
@@ -100,12 +109,17 @@ class NavMenu extends React.Component {
   }
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to='/'/>;
+    }
     return (
         <div className="root">
         <AppBar position="static">
           <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu" className="menuButton">
-              <MenuIcon />
+            <IconButton onClick={this.handleHome} edge="start" color="inherit" aria-label="menu" className="menuButton">
+              <HomeIcon />
             </IconButton>
             <Typography variant="h6" className="navTitle">
               Drug Review

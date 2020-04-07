@@ -58,7 +58,7 @@ export class Login extends React.Component {
   
         if(status > 0) {
           localStorage.setItem('id', status);
-          this.props.history.push("/")
+          this.history.push("/")
         }
         
       });

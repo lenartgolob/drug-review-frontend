@@ -1,15 +1,14 @@
 .container {
     flex: 1;
-    justify-content: "center";
-    align-items: "center";
-    text-align: "center";
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 // Navigation Menu
 .root {
     flex: 1;
     margin-bottom: 75px;
-
 }
 
 .navTitle {
@@ -37,3 +36,45 @@
     width: 300px;
 }
 
+// Review page
+
+.reviewContainer {
+    margin: 0 auto;
+    width: 700px;
+    text-align: left;
+
+}
+
+.underlineReview {
+    width: 700px;
+    background-color: #E0E0E0;
+    border: 0 none;
+    height: 1.73px;
+    margin-bottom: 50px;
+
+}
+
+.reviewTitle {
+    font-weight: bold;
+}
+
+.reviewFormItem {
+    width: 100% !important;
+    margin-bottom: 25px !important;
+
+}
+
+.reviewAutocomplete {
+    width: 100%;
+}
+
+.reviewBox {
+    padding: 0;
+    margin-bottom: 25px !important;
+    margin-top: 10px;
+
+}
+
+.reviewSubmit {
+    float:right;
+}

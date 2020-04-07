@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
 import './components.scss';
 
 class NavMenu extends React.Component {
@@ -16,6 +17,11 @@ class NavMenu extends React.Component {
     this.handleMenu = this.handleMenu.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.isLoggedIn = this.isLoggedIn.bind(this);
+    this.Login = this.Login.bind(this);
+    this.Logout = this.Logout.bind(this);
+
+
     this.state = {
         anchorEl: null,
         auth: true,
@@ -42,13 +48,56 @@ class NavMenu extends React.Component {
   };
 
   handleLogout = () => {
-    this.setState({
-        anchorEl: null
-      });
-    localStorage.clear();
-
-  
   };
+
+  handleLogin = () => {
+  };
+
+  Logout() {
+    return <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={this.handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={this.state.anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(this.state.anchorEl)}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                <MenuItem onClick={this.handleClose}>My reviews</MenuItem>
+                <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+              </Menu>
+          </div>;
+  }
+
+  Login() {
+    return <Button onClick={this.handleLogin} variant="contained" size="small" href="/login">Login</Button>;
+  }
+
+  isLoggedIn() {
+    if (localStorage.getItem("id") == null) {
+      return <this.Login />;
+    }
+    else {
+      return <this.Logout />;
+    }
+  }
 
   render() {
     return (
@@ -59,40 +108,9 @@ class NavMenu extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className="navTitle">
-              Photos
+              Drug Review
             </Typography>
-            { localStorage.getItem("id") != null ? 
-              <div>
-                <IconButton
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={this.state.anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(this.state.anchorEl)}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My reviews</MenuItem>
-                  <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                </Menu>
-              </div>
-               : null}
+            <this.isLoggedIn />
           </Toolbar>
         </AppBar>
       </div>

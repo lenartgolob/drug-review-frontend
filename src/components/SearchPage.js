@@ -3,6 +3,9 @@ import "../App.scss";
 import NavMenu from "./NavMenu";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+
 import './components.scss';
 
 
@@ -11,6 +14,7 @@ class SearchPage extends React.Component {
     super(props);
     this.state = {
       drugs: [],
+      drug: null
     };
   }
 
@@ -41,7 +45,10 @@ class SearchPage extends React.Component {
     return (
     <div className="container">
       <NavMenu />
+      <h1 className="welcome">Welcome to drug review!</h1>
+      <h4 className="subtitle">Read reviews. Write reviews. Find drugs.</h4>
         <Autocomplete
+          onChange={(event, value) => console.log(value)}
           className="autocomplete"
           id="combo-box-demo"
           options={this.state.drugs}
@@ -49,6 +56,15 @@ class SearchPage extends React.Component {
           style={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Search for drugs" variant="outlined" />}
         />
+        <Button
+          variant="contained"
+          color="default"
+          href="/review"
+          className="reviewButton"
+          startIcon={<CloudUploadIcon />}
+        >
+          Write Your Review
+        </Button>
     </div>
     );
   }

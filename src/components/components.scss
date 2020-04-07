@@ -9,6 +9,7 @@
 .root {
     flex: 1;
     margin-bottom: 75px;
+
 }
 
 .navTitle {
@@ -20,5 +21,19 @@
 .autocomplete {
     display: block;
     margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.welcome {
+    font-size: 250%;
+    margin-bottom: 0;
+}
+
+.subtitle {
+    margin-bottom: 50px;
+}
+
+.reviewButton {
+    width: 300px;
 }
 

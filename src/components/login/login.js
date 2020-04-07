@@ -10,6 +10,8 @@ export class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
+    this.keyPress = this.keyPress.bind(this);
+
     this.state = {
       id: 0,
       email: '',
@@ -26,6 +28,44 @@ export class Login extends React.Component {
       [event.target.name]: event.target.value
     });
   }
+
+  keyPress(e){
+    if(e.keyCode === 13){
+      if (this.state.email === '' && this.state.password === '') {
+        this.setState({show: true});
+  
+      }
+      else {
+      fetch('http://localhost:5000/user/session',{
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password
+        })
+      })
+      .then(res => res.json())
+      .then(status => {
+  
+        if(status === 'wrong_pass') {
+          this.setState({show: true});
+        }
+  
+        if(status === 'wrong_user') {
+          this.setState({show: true});
+        }
+  
+  
+        if(status > 0) {
+          localStorage.setItem('id', status);
+          this.props.history.push("/")
+        }
+        
+      });
+    }
+
+    }
+ }
 
   handleLogin() {
 
@@ -80,7 +120,7 @@ export class Login extends React.Component {
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" placeholder="password" onChange={this.handleChange} />
+                <input type="password" name="password" placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
               </div>
             </div>
           </div>

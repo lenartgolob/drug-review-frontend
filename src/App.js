@@ -2,7 +2,7 @@ import React from "react";
 import "./App.scss";
 import LoginPage from "./components/LoginPage";
 import SearchPage from "./components/SearchPage";
-import Review from "./components/Review";
+import ReviewPage from "./components/ReviewPage";
 import NavMenu from "./components/NavMenu";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ class App extends React.Component {
         <Switch>
         <Route path="/" exact component={SearchPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/review" component={Review} />
+          <Route path="/review" component={ReviewPage} />
           <Route path="/nav" component={NavMenu} />
           <Route path="*" component={() => "404 NOT FOUND"} />
         </Switch>

@@ -5,6 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Review from "./Review";
 
 import './components.scss';
 
@@ -65,6 +66,11 @@ class SearchPage extends React.Component {
         >
           Write Your Review
         </Button>
+        <div className="reviewRow">
+          <Review />
+          <Review />
+          <Review />
+        </div>
     </div>
     );
   }

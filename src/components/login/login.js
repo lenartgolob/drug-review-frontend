@@ -2,6 +2,8 @@ import React from "react";
 import loginImg from "../../login.svg";
 import { withRouter } from 'react-router-dom';
 import SweetAlert from 'sweetalert2-react';
+import { Redirect } from 'react-router';
+
 
 
 
@@ -17,6 +19,7 @@ export class Login extends React.Component {
       email: '',
       password: '',
       show: false,
+      redirect: false,
     }
   }
 
@@ -58,7 +61,7 @@ export class Login extends React.Component {
   
         if(status > 0) {
           localStorage.setItem('id', status);
-          this.history.push("/")
+          this.setState({ redirect: true });
         }
         
       });
@@ -106,6 +109,11 @@ export class Login extends React.Component {
 
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to='/'/>;
+    }
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>

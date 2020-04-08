@@ -2,7 +2,7 @@
 .login {
   margin-top: 120px !important;
   width: 27em;
-  height: 40em;
+  // height: 40em;
   //min-height: 44em;
   display: flex;
   justify-content: center;
@@ -103,6 +103,10 @@
           label {
             font-size: 20px;
           }
+          .smallInput {
+            width: 9em !important;
+            flex-direction: row !important;
+          }
           input {
             margin-top: 6px;
             min-width: 18em;
@@ -132,3 +136,4 @@
       margin-top: 3em;
     }
   }
+

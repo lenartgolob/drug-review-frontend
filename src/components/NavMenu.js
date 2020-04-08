@@ -8,7 +8,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
-import { Redirect } from 'react-router';
 import './components.scss';
 
 class NavMenu extends React.Component {
@@ -19,7 +18,6 @@ class NavMenu extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.isLoggedIn = this.isLoggedIn.bind(this);
-    this.handleHome = this.handleHome.bind(this);
     this.Login = this.Login.bind(this);
     this.Logout = this.Logout.bind(this);
 
@@ -57,10 +55,6 @@ class NavMenu extends React.Component {
     });	
   localStorage.clear();
   };
-
-  handleHome() {
-    this.setState({ redirect: true })
-  }
 
   Logout() {
     return <div>
@@ -109,16 +103,11 @@ class NavMenu extends React.Component {
   }
 
   render() {
-    const { redirect } = this.state;
-
-    if (redirect) {
-      return <Redirect to='/'/>;
-    }
     return (
         <div className="root">
         <AppBar position="static">
           <Toolbar>
-            <IconButton onClick={this.handleHome} edge="start" color="inherit" aria-label="menu" className="menuButton">
+            <IconButton href="/" edge="start" color="inherit" aria-label="menu" className="menuButton">
               <HomeIcon />
             </IconButton>
             <Typography variant="h6" className="navTitle">

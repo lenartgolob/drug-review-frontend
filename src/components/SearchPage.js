@@ -66,6 +66,8 @@ class SearchPage extends React.Component {
         >
           Write Your Review
         </Button>
+        {/* <h2 className="recentReviewsTitle">Recent reviews</h2>
+        <hr className="underlineRecentReviews" /> */}
         <div className="reviewRow">
           <Review />
           <Review />

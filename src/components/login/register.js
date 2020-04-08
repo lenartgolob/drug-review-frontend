@@ -9,6 +9,8 @@ class Register extends React.Component {
     super(props);
     this.handleRegistration = this.handleRegistration.bind(this);
     this.handleEmailTaken = this.handleEmailTaken.bind(this);
+    this.keyPress = this.keyPress.bind(this);
+
     this.state = {
       email: '',
       password: '',
@@ -33,6 +35,45 @@ class Register extends React.Component {
       alertMsg: "Email is already taken!" 
     });
     }
+  
+    keyPress(e){
+      if(e.keyCode === 13){
+        var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
+        if(this.state.name === "" && this.state.lastname === "" && this.state.email === "" && this.state.password === "") {
+          this.setState({
+            show: true,
+            alertMsg: "All fields are required!"
+          });
+        }
+        else if (this.state.password.length < 6) {
+          this.setState({
+            show: true,
+            alertMsg: "Password has to have atleast 6 characters!"
+          });
+        }
+        else if (emailValidation === false) {
+          this.setState({
+            show: true,
+            alertMsg: "Invalid email!"
+          });
+        }
+        else {
+        fetch('http://localhost:5000/user/new',{
+          method: 'POST',
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            name: this.state.name,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            password: this.state.password
+          })
+        })
+        .then(res => res.json())
+        .then(rows => (rows === false) ? this.handleEmailTaken(rows) : window.location.reload());
+      }
+  
+      }
+   }
 
   handleRegistration() {
     var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
@@ -93,7 +134,7 @@ class Register extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="password" onChange={this.handleChange} />
+              <input type="password" name="password" placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
             </div>
           </div>
         </div>

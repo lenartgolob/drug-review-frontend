@@ -57,10 +57,11 @@ export class Login extends React.Component {
         if(status === 'wrong_user') {
           this.setState({show: true});
         }
-  
-  
-        if(status > 0) {
-          localStorage.setItem('id', status);
+        else {
+          localStorage.setItem('id', status.id);
+          localStorage.setItem('initials', status.initials);
+          localStorage.setItem('avatar_color', status.avatar_color);
+          localStorage.setItem('avatar_font_color', status.avatar_font_color);
           this.setState({ redirect: true });
         }
         
@@ -95,11 +96,12 @@ export class Login extends React.Component {
       if(status === 'wrong_user') {
         this.setState({show: true});
       }
-
-
-      if(status > 0) {
-        localStorage.setItem('id', status);
-        this.props.history.push("/")
+      else {
+        localStorage.setItem('id', status.id);
+        localStorage.setItem('initials', status.initials);
+        localStorage.setItem('avatar_color', status.avatar_color);
+        localStorage.setItem('avatar_font_color', status.avatar_font_color);
+        this.setState({ redirect: true });
       }
       
     });

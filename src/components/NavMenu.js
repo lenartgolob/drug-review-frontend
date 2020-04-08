@@ -4,11 +4,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import './components.scss';
+
 
 class NavMenu extends React.Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class NavMenu extends React.Component {
                 onClick={this.handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+                <Avatar style={{backgroundColor: localStorage.getItem("avatar_color"), color: localStorage.getItem("avatar_font_color")}}><span className="navAvatar">{localStorage.getItem("initials")}</span></Avatar>
               </IconButton>
               <Menu
                 id="menu-appbar"

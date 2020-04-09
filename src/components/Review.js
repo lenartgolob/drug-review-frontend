@@ -51,27 +51,27 @@ class Review extends React.Component {
   }
 
   componentDidMount() {
-    const url = "http://localhost:5000/api/customers";
+    // const url = "http://localhost:5000/api/customers";
 
-    fetch(url)
-      .then(res => res.json())
-      .then(customers => this.setState({customers}, () => console.log('Customers fetched...', customers)));
+    // fetch(url)
+    //   .then(res => res.json())
+    //   .then(customers => this.setState({customers}, () => console.log('Customers fetched...', customers)));
   }
 
   render() {
     return (
       <Box className="reviewBoxContainer" boxShadow={3} borderRadius={4} >
-            <Avatar className="avatar">LG</Avatar>
+            <Avatar style={{backgroundColor: this.props.avatarColor, color: this.props.avatarFontColor}} className="avatar">{this.props.initials}</Avatar>
             <Rating
               className="rating"
               name="customized-icons"
-              defaultValue={2}
-              getLabelText={(value) => customIcons[value].label}
+              defaultValue={this.props.rating}
+              // getLabelText={(value) => customIcons[value].label}
               IconContainerComponent={IconContainer}
               readOnly 
             />
-            <p><span className="reviewComponentTitle">Title of component</span><span className="reviewComponentParagraph"> review of</span><span className="reviewComponentTitle"> drug name</span></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p><span className="reviewComponentTitle">{this.props.title}</span><span className="reviewComponentParagraph"> review of </span><span className="reviewComponentTitle">{this.props.drugName}</span></p>
+            <p>{this.props.review}</p>
       </Box>
     );
   }

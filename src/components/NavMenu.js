@@ -82,6 +82,7 @@ class NavMenu extends React.Component {
                 }}
                 open={Boolean(this.state.anchorEl)}
                 onClose={this.handleClose}
+                style={{marginTop: "42px"}}
               >
                 <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleClose}>My reviews</MenuItem>

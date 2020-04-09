@@ -64,8 +64,8 @@ class Review extends React.Component {
       title: "",
       review: "",
       showError: false,
-      msg: '',
       redirect: false,
+      redirectSuccess: false
     };
   }
 
@@ -115,7 +115,7 @@ class Review extends React.Component {
         })
       })
       .then(res => res.json())
-      .then(msg => this.setState({msg}));
+      .then(msg => this.setState({ redirectSuccess: true }));
     }
     else {
       this.setState({showError: true});
@@ -138,6 +138,12 @@ class Review extends React.Component {
 
     if (redirect) {
       return <Redirect to='/login'/>;
+    }
+
+    const { redirectSuccess } = this.state;
+
+    if (redirectSuccess) {
+      return <Redirect to='/'/>;
     }
     return (
     <div className="container">

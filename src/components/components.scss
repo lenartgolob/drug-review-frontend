@@ -16,7 +16,7 @@
 }
 
 .navAvatar {
-    font-size: 85%;
+    font-size: 90%;
     font-weight: 600;
 }
 
@@ -42,18 +42,19 @@
 
 .reviewButton {
     width: 300px;
-    margin-bottom: 100px !important;
+    margin-bottom: 60px !important;
 }
 
 .reviewRow {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center !important;
 }
 
 .recentReviewsTitle {
     margin-bottom: 20px;
-    font-size: 130%;
+    font-size: 190%;
 }
 
 .underlineRecentReviews {
@@ -123,6 +124,8 @@
     float: left;
     margin-right: 25px;
     width: 5px;
+    font-weight: 500;
+    font-size: 95%;
 }
 
 .rating {

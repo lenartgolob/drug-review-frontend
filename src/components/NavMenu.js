@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from 'react-router';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -15,8 +16,8 @@ class NavMenu extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handleMenu = this.handleMenu.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.isLoggedIn = this.isLoggedIn.bind(this);
     this.Login = this.Login.bind(this);
@@ -26,8 +27,6 @@ class NavMenu extends React.Component {
     this.state = {
         anchorEl: null,
         auth: true,
-        redirect: false
-
     };
   }
 
@@ -46,9 +45,9 @@ class NavMenu extends React.Component {
 
   handleClose = () => {
     this.setState({
-        anchorEl: null
+        anchorEl: null,
       });  
-  };
+  }
 
   handleLogout = () => {
     this.setState({	  
@@ -84,15 +83,20 @@ class NavMenu extends React.Component {
                 onClose={this.handleClose}
                 style={{marginTop: "42px"}}
               >
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My reviews</MenuItem>
+                <a href="/user/profile"><MenuItem>Profile</MenuItem></a>
+                <a href="/user/reviews"><MenuItem>My reviews</MenuItem></a>
                 <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
               </Menu>
           </div>;
   }
 
   Login() {
+    if(this.props.hide) {
+      return null;
+    }
+    else {
     return <Button onClick={this.handleLogin} variant="contained" size="small" href="/login">Login</Button>;
+    }
   }
 
   isLoggedIn() {
@@ -105,9 +109,20 @@ class NavMenu extends React.Component {
   }
 
   render() {
+    const { redirectProfile } = this.state;
+
+    if (redirectProfile) {
+      return <Redirect to='/user/profile'/>;
+    }
+
+    const { redirectReviews } = this.state;
+
+    if (redirectReviews) {
+      return <Redirect to='/user/reviews'/>;
+    }
     return (
         <div className="root">
-        <AppBar position="static">
+        <AppBar  position="static">
           <Toolbar>
             <IconButton href="/" edge="start" color="inherit" aria-label="menu" className="menuButton">
               <HomeIcon />

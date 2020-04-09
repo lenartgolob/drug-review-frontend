@@ -14,6 +14,8 @@ import SweetAlert from 'sweetalert2-react';
 import Box from '@material-ui/core/Box';
 import SendIcon from '@material-ui/icons/Send';
 import { Redirect } from 'react-router';
+import './components.scss';
+
 
 
 

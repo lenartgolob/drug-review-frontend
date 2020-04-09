@@ -143,7 +143,7 @@ export class Login extends React.Component {
             onOutsideClick={() => this.setState({ show: false })}
           />
           <div className="footer">
-            <button className="btn" onClick={this.handleLogin}>
+            <button className="btn" style={{background: "#4A7EBB"}} onClick={this.handleLogin}>
               Login
             </button>
           </div>

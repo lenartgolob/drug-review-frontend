@@ -6,7 +6,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Review from "./Review";
-
 import './components.scss';
 
 
@@ -14,6 +13,7 @@ class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.handleRecentReviews = this.handleRecentReviews.bind(this);
+    this.keyPress = this.keyPress.bind(this);
     this.state = {
       drugs: [],
       review1: {},
@@ -48,6 +48,12 @@ class SearchPage extends React.Component {
           
 }
 
+keyPress(e){
+  if(e.keyCode === 13){
+
+  }
+}
+
   handleRecentReviews(reviews) {
     this.setState({
       review1: reviews[0],
@@ -67,6 +73,7 @@ class SearchPage extends React.Component {
       <h1 className="welcome">Welcome to drug review!</h1>
       <h4 className="subtitle">Read reviews. Write reviews. Find drugs.</h4>
         <Autocomplete
+          onKeyDown={this.keyPress}
           onChange={(event, value) => console.log(value)}
           className="autocomplete"
           id="combo-box-demo"

@@ -139,7 +139,7 @@ class Register extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn" onClick={this.handleRegistration}>
+          <button type="button" style={{background: "#4A7EBB"}} className="btn" onClick={this.handleRegistration}>
             Register
           </button>
         </div>

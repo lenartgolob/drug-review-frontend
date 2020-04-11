@@ -71,6 +71,9 @@ class MyReviewsPage extends React.Component {
                       review={this.state.reviews[i].review}
                    />
             }
+            else {
+              return null
+            }
             })
         }
       </div>

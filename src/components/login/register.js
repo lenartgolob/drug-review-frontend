@@ -1,8 +1,9 @@
 import React from "react";
 import loginImg from "../../login.svg";
-import SweetAlert from 'sweetalert2-react';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-
+const MySwal = withReactContent(Swal)
 
 class Register extends React.Component {
   constructor(props) {
@@ -17,8 +18,6 @@ class Register extends React.Component {
       name: '',
       lastname: '',
       rows: [],
-      show: false,
-      alertMsg: "",
     }
   }
 
@@ -30,70 +29,70 @@ class Register extends React.Component {
   }
 
   handleEmailTaken(rows) {
-    this.setState({
-      show: true, 
-      alertMsg: "Email is already taken!" 
-    });
+    MySwal.fire({
+      icon: 'error',
+      title: 'Email is already taken!',
+    })
     }
   
-    keyPress(e){
-      if(e.keyCode === 13){
-        var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
-        if(this.state.name === "" && this.state.lastname === "" && this.state.email === "" && this.state.password === "") {
-          this.setState({
-            show: true,
-            alertMsg: "All fields are required!"
-          });
-        }
-        else if (this.state.password.length < 6) {
-          this.setState({
-            show: true,
-            alertMsg: "Password has to have atleast 6 characters!"
-          });
-        }
-        else if (emailValidation === false) {
-          this.setState({
-            show: true,
-            alertMsg: "Invalid email!"
-          });
-        }
-        else {
-        fetch('http://localhost:5000/user/new',{
-          method: 'POST',
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            name: this.state.name,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            password: this.state.password
-          })
-        })
-        .then(res => res.json())
-        .then(rows => (rows === false) ? this.handleEmailTaken(rows) : window.location.reload());
-      }
+  //   keyPress(e){
+  //     if(e.keyCode === 13){
+  //       var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
+  //       if(this.state.name === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "") {
+  //         MySwal.fire({
+  //           icon: 'error',
+  //           title: 'All fields are required!',
+  //         })
+  //       }
+  //       else if (this.state.password.length < 6) {
+  //         MySwal.fire({
+  //           icon: 'error',
+  //           title: 'Password has to have atleast 6 characters!',
+  //         })
+  //       }
+  //       else if (emailValidation === false) {
+  //         MySwal.fire({
+  //           icon: 'error',
+  //           title: 'Invalid email!',
+  //         })
+  //       }
+  //       else {
+  //       fetch('http://localhost:5000/user/new',{
+  //         method: 'POST',
+  //         headers: {"Content-Type": "application/json"},
+  //         body: JSON.stringify({
+  //           name: this.state.name,
+  //           lastname: this.state.lastname,
+  //           email: this.state.email,
+  //           password: this.state.password
+  //         })
+  //       })
+  //       .then(res => res.json())
+  //       .then(rows => (rows === false) ? this.handleEmailTaken(rows) : window.location.reload());
+  //     }
   
-      }
-   }
+  //     }
+  //  }
 
   handleRegistration() {
     var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
-    if(this.state.name === "" && this.state.lastname === "" && this.state.email === "" && this.state.password === "") {
-      this.setState({
-        show: true,
-        alertMsg: "All fields are required!"
-      });
+    if(this.state.name === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "") {
+      MySwal.fire({
+        icon: 'error',
+        title: 'All fields are required!',
+      })
     }
     else if (this.state.password.length < 6) {
-      this.setState({
-        show: true,
-        alertMsg: "Password has to have atleast 6 characters!"
-      });
+      MySwal.fire({
+        icon: 'error',
+        title: 'Password has to have atleast 6 characters!',
+      })
     }
     else if (emailValidation === false) {
-      this.setState({
-        show: true,
-        alertMsg: "Invalid email!"
-      });
+      MySwal.fire({
+        icon: 'error',
+        title: 'Invalid email!',
+      })
     }
     else {
     fetch('http://localhost:5000/user/new',{
@@ -143,14 +142,6 @@ class Register extends React.Component {
             Register
           </button>
         </div>
-        <SweetAlert
-            type="error"
-            show={this.state.show}
-            title={this.state.alertMsg}
-            onConfirm={() => this.setState({ show: false })}
-            onEscapeKey={() => this.setState({ show: false })}
-            onOutsideClick={() => this.setState({ show: false })}
-          />
       </div>
     );
   }

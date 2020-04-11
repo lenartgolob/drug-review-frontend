@@ -62,6 +62,9 @@ class AllReviewsPage extends React.Component {
                         review={this.state.reviews[i].review}
                      />
               }
+              else {
+                return null;
+              }
               })
           }
         </div>

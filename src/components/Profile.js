@@ -1,7 +1,9 @@
 import React from "react";
-import SweetAlert from 'sweetalert2-react';
 import Box from '@material-ui/core/Box';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
+const MySwal = withReactContent(Swal)
 
 class Profile extends React.Component {
   constructor(props) {
@@ -14,9 +16,6 @@ class Profile extends React.Component {
         lastname: "",
         email: "",
         password: "",
-        show: false,
-        alertMsg: "",
-        alertType: "",
     };
   }
 
@@ -49,94 +48,93 @@ class Profile extends React.Component {
 
   handleResponse(response) {
     if(response === true) {
+      MySwal.fire({
+        icon: 'success',
+        title: 'Profile successfuly updated!',
+      })
+
         this.setState({
-        show: true, 
-        alertMsg: "Profile successfuly updated!",
-        alertType: "success",
         password: ""
         });
     }
     else if (response === "wrong_pass") {
+        MySwal.fire({
+          icon: 'error',
+          title: 'Wrong password!',
+        })
         this.setState({
-            show: true, 
-            alertMsg: "Wrong password!",
-            alertType: "error",
             password: ""
             });
     }
     else if (response === false) {
+      MySwal.fire({
+        icon: 'error',
+        title: 'That email is already taken!',
+      })
         this.setState({
-            show: true, 
-            alertMsg: "That email is already taken!",
-            alertType: "error",
             password: ""
-            });
+      });
     }
     }
   
-    keyPress(e){
-      if(e.keyCode === 13){
-        var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
-        if(this.state.name === "" && this.state.lastname === "" && this.state.email === "" && this.state.password === "") {
-          this.setState({
-            show: true,
-            alertMsg: "All fields are required!"
-          });
-        }
-        else if (this.state.password.length < 6) {
-          this.setState({
-            show: true,
-            alertMsg: "Password has to have atleast 6 characters!",
-            alertType: "error",
-          });
-        }
-        else if (emailValidation === false) {
-          this.setState({
-            show: true,
-            alertMsg: "Invalid email!",
-            alertType: "error",
-          });
-        }
-        else {
-        fetch('http://localhost:5000/user/profile/edit',{
-          method: 'POST',
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            id: localStorage.getItem("id"),
-            name: this.state.name,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            password: this.state.password
-          })
-        })
-        .then(res => res.json())
-        .then(response => this.handleResponse(response));
-      }
-  
-      }
-   }
+  //   keyPress(e){
+  //     if(e.keyCode === 13){
+  //       var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
+  //       if(this.state.name === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "") {
+  //         MySwal.fire({
+  //           icon: 'error',
+  //           title: 'All fields are required!',
+  //         })
+  //       }
+  //       else if (this.state.password.length < 6) {
+  //         MySwal.fire({
+  //           icon: 'error',
+  //           title: 'Password has to have atleast 6 characters!',
+  //         })
+  //       }
+  //       else if (emailValidation === false) {
+  //         MySwal.fire({
+  //           icon: 'error',
+  //           title: 'Invalid email!',
+  //         })
+  //       }
+  //       else {
+  //       fetch('http://localhost:5000/user/profile/edit',{
+  //         method: 'POST',
+  //         headers: {"Content-Type": "application/json"},
+  //         body: JSON.stringify({
+  //           id: localStorage.getItem("id"),
+  //           name: this.state.name,
+  //           lastname: this.state.lastname,
+  //           email: this.state.email,
+  //           password: this.state.password
+  //         })
+  //       })
+  //       .then(res => res.json())
+  //       .then(response => this.handleResponse(response));
+  //     }  
+  //     }
+  //  }
 
    handleProfile() {
     var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
-    if(this.state.name === "" && this.state.lastname === "" && this.state.email === "" && this.state.password === "") {
-      this.setState({
-        show: true,
-        alertMsg: "All fields are required!"
-      });
+    if(this.state.name === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "") {
+      MySwal.fire({
+        icon: 'error',
+        title: 'All fields are required!',
+      })
     }
     else if (this.state.password.length < 6) {
-      this.setState({
-        show: true,
-        alertMsg: "Password has to have atleast 6 characters!",
-        alertType: "error",
-      });
+      MySwal.fire({
+        icon: 'error',
+        title: 'Password has to have atleast 6 characters!',
+      })
     }
     else if (emailValidation === false) {
-      this.setState({
-        show: true,
-        alertMsg: "Invalid email!",
-        alertType: "error",
-      });
+      MySwal.fire({
+        icon: 'error',
+        title: 'Invalid email!',
+      })
     }
     else {
     fetch('http://localhost:5000/user/profile/edit',{
@@ -186,14 +184,6 @@ class Profile extends React.Component {
             Save changes
           </button>
         </div>
-        <SweetAlert
-            type={this.state.alertType}
-            show={this.state.show}
-            title={this.state.alertMsg}
-            onConfirm={() => this.setState({ show: false })}
-            onEscapeKey={() => this.setState({ show: false })}
-            onOutsideClick={() => this.setState({ show: false })}
-          />
           </Box>
       </div>
     );

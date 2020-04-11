@@ -10,13 +10,14 @@ import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
-import SweetAlert from 'sweetalert2-react';
 import Box from '@material-ui/core/Box';
 import SendIcon from '@material-ui/icons/Send';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import queryString from 'query-string';
 import './components.scss';
 
-
+const MySwal = withReactContent(Swal)
 
 
 const customIcons = {
@@ -65,9 +66,6 @@ class ReviewEditPage extends React.Component {
       title: "",
       review: "",
       id: null,
-      show: false,
-      alertType: "",
-      alertMsg: "",
       redirectSuccess: false
     };
   }
@@ -124,7 +122,7 @@ class ReviewEditPage extends React.Component {
     console.log(this.state.title)
     console.log(this.state.review)
 
-    if(this.state.drug !== "" && this.state.rating !== null && this.state.title !== "" && this.state.review !== "") {
+    if(this.state.drug !== "" && this.state.rating !== null && this.state.title !== "" && this.state.review !== "" && this.state.drug !== null) {
       fetch('http://localhost:5000/review/edit',{
         method: 'POST',
         headers: {"Content-Type": "application/json"},
@@ -141,28 +139,25 @@ class ReviewEditPage extends React.Component {
       .then(msg => this.handleAlert(msg));
     }
     else {
-      this.setState({
-          show: true,
-          alertType: "error"  ,
-          alertMsg: "All fields are required!"      
-        });
+      MySwal.fire({
+        icon: 'error',
+        title: 'All fields are required!',
+      })
     }
   }
 
   handleAlert(msg) {
     if(msg) {
-        this.setState({
-            show: true,
-            alertType: "success",
-            alertMsg: "Your review was updated successfuly"
-        })
+      MySwal.fire({
+        icon: 'success',
+        title: 'Your review was updated successfuly!',
+      })
     }
     else {
-        this.setState({
-            show: true,
-            alertType: "error",
-            alertMsg: "Something went wrong"
-        })
+      MySwal.fire({
+        icon: 'error',
+        title: 'Something went wrong',
+      })
     }
   }
 
@@ -237,14 +232,6 @@ class ReviewEditPage extends React.Component {
           </Button>
         </form>
       </div>
-        <SweetAlert
-          type={this.state.alertType}
-          show={this.state.show}
-          title={this.state.alertMsg}
-          onConfirm={() => this.setState({ show: false })}
-          onEscapeKey={() => this.setState({ show: false })}
-          onOutsideClick={() => this.setState({ show: false })}
-        />
     </div>
     );
   }

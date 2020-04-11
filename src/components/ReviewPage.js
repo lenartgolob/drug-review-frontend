@@ -10,14 +10,14 @@ import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
-import SweetAlert from 'sweetalert2-react';
 import Box from '@material-ui/core/Box';
 import SendIcon from '@material-ui/icons/Send';
 import { Redirect } from 'react-router';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import './components.scss';
 
-
-
+const MySwal = withReactContent(Swal)
 
 const customIcons = {
   1: {
@@ -65,7 +65,6 @@ class ReviewPage extends React.Component {
       rating: null,
       title: "",
       review: "",
-      showError: false,
       redirect: false,
       redirectSuccess: false
     };
@@ -120,7 +119,10 @@ class ReviewPage extends React.Component {
       .then(msg => this.setState({ redirectSuccess: true }));
     }
     else {
-      this.setState({showError: true});
+      MySwal.fire({
+        icon: 'error',
+        title: 'All fields are required!',
+      })
     }
 
 
@@ -198,14 +200,6 @@ class ReviewPage extends React.Component {
           </Button>
         </form>
       </div>
-        <SweetAlert
-          type="error"
-          show={this.state.showError}
-          title="All the fields are required!"
-          onConfirm={() => this.setState({ showError: false })}
-          onEscapeKey={() => this.setState({ showError: false })}
-          onOutsideClick={() => this.setState({ showError: false })}
-        />
     </div>
     );
   }

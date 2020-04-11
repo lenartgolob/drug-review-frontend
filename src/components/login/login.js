@@ -1,12 +1,11 @@
 import React from "react";
 import loginImg from "../../login.svg";
 import { withRouter } from 'react-router-dom';
-import SweetAlert from 'sweetalert2-react';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { Redirect } from 'react-router';
 
-
-
-
+const MySwal = withReactContent(Swal)
 
 export class Login extends React.Component {
   constructor(props) {
@@ -18,7 +17,6 @@ export class Login extends React.Component {
       id: 0,
       email: '',
       password: '',
-      show: false,
       redirect: false,
     }
   }
@@ -34,11 +32,6 @@ export class Login extends React.Component {
 
   keyPress(e){
     if(e.keyCode === 13){
-      if (this.state.email === '' && this.state.password === '') {
-        this.setState({show: true});
-  
-      }
-      else {
       fetch('http://localhost:5000/user/session',{
         method: 'POST',
         headers: {"Content-Type": "application/json"},
@@ -49,13 +42,24 @@ export class Login extends React.Component {
       })
       .then(res => res.json())
       .then(status => {
-  
         if(status === 'wrong_pass') {
-          this.setState({show: true});
+          MySwal.fire({
+            icon: 'error',
+            title: 'Password is incorrect!',
+          })
+          this.setState({
+            password: ""
+          })
         }
-  
-        if(status === 'wrong_user') {
-          this.setState({show: true});
+        else if(status === 'wrong_user') {
+          MySwal.fire({
+            icon: 'error',
+            title: 'Account doesn\'t exist!',
+          })
+          this.setState({
+            email: "",
+            password: ""
+          })
         }
         else {
           if(status.admin > 0) {
@@ -66,21 +70,13 @@ export class Login extends React.Component {
           localStorage.setItem('avatar_color', status.avatar_color);
           localStorage.setItem('avatar_font_color', status.avatar_font_color);
           this.setState({ redirect: true });
-        }
-        
+        }     
       });
-    }
-
     }
  }
 
   handleLogin() {
 
-    if (this.state.email === '' && this.state.password === '') {
-      this.setState({show: true});
-
-    }
-    else {
     fetch('http://localhost:5000/user/session',{
       method: 'POST',
       headers: {"Content-Type": "application/json"},
@@ -91,15 +87,29 @@ export class Login extends React.Component {
     })
     .then(res => res.json())
     .then(status => {
-
       if(status === 'wrong_pass') {
-        this.setState({show: true});
+        MySwal.fire({
+          icon: 'error',
+          title: 'Password is incorrect!',
+        })
+        this.setState({
+          password: ""
+        })
       }
-
-      if(status === 'wrong_user') {
-        this.setState({show: true});
+      else if(status === 'wrong_user') {
+        MySwal.fire({
+          icon: 'error',
+          title: 'Account doesn\'t exist!',
+        })
+        this.setState({
+          email: "",
+          password: ""
+        })
       }
       else {
+        if(status.admin > 0) {
+          localStorage.setItem('admin', true);
+        }
         localStorage.setItem('id', status.id);
         localStorage.setItem('initials', status.initials);
         localStorage.setItem('avatar_color', status.avatar_color);
@@ -108,7 +118,6 @@ export class Login extends React.Component {
       }
       
     });
-  }
   }
 
 
@@ -129,22 +138,14 @@ export class Login extends React.Component {
             <div className="form">
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" placeholder="email" onChange={this.handleChange} />
+                <input type="email" value={this.state.email} name="email" placeholder="email" onChange={this.handleChange} />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
+                <input type="password" name="password" value={this.state.password} placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
               </div>
             </div>
           </div>
-          <SweetAlert
-            type="error"
-            show={this.state.show}
-            title="Email or password incorrect"
-            onConfirm={() => this.setState({ show: false })}
-            onEscapeKey={() => this.setState({ show: false })}
-            onOutsideClick={() => this.setState({ show: false })}
-          />
           <div className="footer">
             <button className="btn" style={{background: "#4A7EBB"}} onClick={this.handleLogin}>
               Login

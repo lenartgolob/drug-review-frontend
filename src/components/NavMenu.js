@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from 'react-router';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -40,7 +39,6 @@ class NavMenu extends React.Component {
     this.setState({
         anchorEl: event.currentTarget
       });
-      console.log("neki")
   };
 
   handleClose = () => {
@@ -50,10 +48,11 @@ class NavMenu extends React.Component {
   }
 
   handleLogout = () => {
+    localStorage.clear();
     this.setState({	  
-      anchorEl: null	
+      anchorEl: null,
     });	
-  localStorage.clear();
+    window.location.replace("/");
   };
 
   Logout() {
@@ -84,7 +83,8 @@ class NavMenu extends React.Component {
                 style={{marginTop: "42px"}}
               >
                 <a href="/user/profile"><MenuItem>Profile</MenuItem></a>
-                <a href="/user/reviews"><MenuItem>My reviews</MenuItem></a>
+              <a href="/user/reviews"><MenuItem>My reviews</MenuItem></a>
+                {(localStorage.getItem("admin") === "true") ? <a href="/all/reviews"><MenuItem>All reviews</MenuItem></a> : null}
                 <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
               </Menu>
           </div>;
@@ -109,17 +109,6 @@ class NavMenu extends React.Component {
   }
 
   render() {
-    const { redirectProfile } = this.state;
-
-    if (redirectProfile) {
-      return <Redirect to='/user/profile'/>;
-    }
-
-    const { redirectReviews } = this.state;
-
-    if (redirectReviews) {
-      return <Redirect to='/user/reviews'/>;
-    }
     return (
         <div className="root">
         <AppBar  position="static">

@@ -58,6 +58,9 @@ export class Login extends React.Component {
           this.setState({show: true});
         }
         else {
+          if(status.admin > 0) {
+            localStorage.setItem('admin', true);
+          }
           localStorage.setItem('id', status.id);
           localStorage.setItem('initials', status.initials);
           localStorage.setItem('avatar_color', status.avatar_color);

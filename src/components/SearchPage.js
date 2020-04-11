@@ -5,6 +5,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Review from "./Review";
 import './components.scss';
 
@@ -19,7 +22,7 @@ class SearchPage extends React.Component {
       review1: {},
       review2: {},
       review3: {},
-      number: 2
+      drug: null,
     };
   }
 
@@ -50,7 +53,14 @@ class SearchPage extends React.Component {
 
 keyPress(e){
   if(e.keyCode === 13){
+    if(this.state.drug === null) {
 
+    }
+    else {
+      localStorage.setItem('drug', this.state.drug);
+      window.location.href = "/reviews?drug=" + this.state.drug;
+
+    }
   }
 }
 
@@ -73,8 +83,10 @@ keyPress(e){
       <h1 className="welcome">Welcome to drug review!</h1>
       <h4 className="subtitle">Read reviews. Write reviews. Find drugs.</h4>
         <Autocomplete
+          forcePopupIcon={false}
+          // popupIcon={<SearchIcon />}
           onKeyDown={this.keyPress}
-          onChange={(event, value) => console.log(value)}
+          onChange={(event, value) => this.setState({drug: value})}
           className="autocomplete"
           id="combo-box-demo"
           options={this.state.drugs}

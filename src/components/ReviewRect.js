@@ -46,10 +46,33 @@ const customIcons = {
     value: PropTypes.number.isRequired,
   };
 
+  function IconContainerAdmin(props) {
+    return <div className="iconContainer">
+              <IconButton className="reviewRectIconButton" aria-label="edit">
+                  <EditIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
+              </IconButton>
+              <IconButton className="reviewRectIconButton" aria-label="delete">
+                  <DeleteIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
+              </IconButton>
+            </div>;
+  }
+
+  function IconContainerUser(props) {
+    return <div className="iconContainer">
+              <IconButton className="reviewRectIconButton" aria-label="edit">
+                  <EditIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
+              </IconButton>
+              <IconButton className="reviewRectIconButton" aria-label="delete">
+                  <DeleteIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
+              </IconButton>
+            </div>;
+  }
+
 
 class ReviewRect extends React.Component {
   constructor(props) {
     super(props);
+    this.handleEditDelete = this.handleEditDelete.bind(this);
     this.state = {
     };
   }
@@ -59,13 +82,15 @@ class ReviewRect extends React.Component {
       <Box className="reviewRectBoxContainer" boxShadow={3} borderRadius={4} >
         <div>
             <Avatar style={{backgroundColor: this.props.avatarColor, color: this.props.avatarFontColor, width: "45px", height: "45px"}} className="avatarRect">{this.props.initials}</Avatar>
-            <p className="reviewAuthor">Lenart Golob</p>
-            <IconButton className="reviewRectIconButton" aria-label="edit">
-                <EditIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
-            </IconButton>
-            <IconButton className="reviewRectIconButton" aria-label="delete">
-                <DeleteIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
-            </IconButton>
+            <p className="reviewAuthor">{this.props.user}</p>
+            <div className="iconContainer">
+              <IconButton className="reviewRectIconButton" aria-label="edit">
+                  <EditIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
+              </IconButton>
+              <IconButton className="reviewRectIconButton" aria-label="delete">
+                  <DeleteIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
+              </IconButton>
+            </div>
         </div>
             <hr className="rectUnderline" />
             <Rating

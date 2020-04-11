@@ -1,6 +1,7 @@
 import React from "react";
 import NavMenu from "./NavMenu";
 import ReviewRect from "./ReviewRect";
+import { Redirect } from 'react-router';
 import './components.scss';
 
 
@@ -8,47 +9,68 @@ import './components.scss';
 class MyReviewsPage extends React.Component {
   constructor(props) {
     super(props);
+    this.handleReviews = this.handleReviews.bind(this);
     this.state = {
+      reviews: [{}],
+      isLoaded: false,
+      redirect: false,
     };
   }
 
+  componentDidMount() {
+    if (localStorage.getItem("id") == null) {
+      this.setState({ redirect: true })
+    }
+    else {
+    fetch('http://localhost:5000/my/reviews',{
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        id: localStorage.getItem("id")
+      })
+    })
+    .then(res => res.json())
+    .then(reviews => this.handleReviews(reviews));
+    }
+  }
+
+  handleReviews(reviews) {
+    console.log(reviews)
+    this.setState({
+      reviews: reviews,
+      isLoaded: true,
+    })
+  }
+
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to='/login'/>;
+    }
     return (
       <div className="container">
       <NavMenu />
       <div className="myReviewContainer">
         <p className="myReviewTitle">My reviews</p>
         <hr className="underlineReview" />
-        <ReviewRect
-          initials={"LG"} 
-          title={"Title"}
-          avatarColor={"#FCEAD5"}
-          avatarFontColor={"#AA6410"}
-          rating={3}
-          drugName={"Xanax"}
-          review={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
-        
-        />
-        <ReviewRect
-          initials={"LG"} 
-          title={"Title"}
-          avatarColor={"#FCEAD5"}
-          avatarFontColor={"#AA6410"}
-          rating={3}
-          drugName={"Xanax"}
-          review={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "}
-        
-        />
-        <ReviewRect
-          initials={"LG"} 
-          title={"Title"}
-          avatarColor={"#FCEAD5"}
-          avatarFontColor={"#AA6410"}
-          rating={3}
-          drugName={"Xanax"}
-          review={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "}
-        
-        />
+        {
+          this.state.reviews.map((item, i) => {
+            if(this.state.isLoaded){
+            return <ReviewRect 
+                      key={i}
+                      initials={localStorage.getItem("initials")} 
+                      user={this.state.reviews[i].name + " " + this.state.reviews[i].lastname}
+                      title={this.state.reviews[i].title}
+                      avatarColor={localStorage.getItem("avatar_color")}
+                      avatarFontColor={localStorage.getItem("avatar_font_color")}
+                      rating={this.state.reviews[i].rating}
+                      drugName={this.state.reviews[i].drug}
+                      review={this.state.reviews[i].review}
+                   />
+            }
+            })
+        }
       </div>
     </div>
     );

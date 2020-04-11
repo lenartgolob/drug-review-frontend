@@ -59,6 +59,8 @@ class MyReviewsPage extends React.Component {
             if(this.state.isLoaded){
             return <ReviewRect 
                       key={i}
+                      id={this.state.reviews[i].id}
+                      user_id={this.state.reviews[i].user_id}
                       initials={localStorage.getItem("initials")} 
                       user={this.state.reviews[i].name + " " + this.state.reviews[i].lastname}
                       title={this.state.reviews[i].title}

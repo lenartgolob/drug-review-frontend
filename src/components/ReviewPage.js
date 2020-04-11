@@ -54,7 +54,7 @@ IconContainer.propTypes = {
 
 
 
-class Review extends React.Component {
+class ReviewPage extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -211,4 +211,4 @@ class Review extends React.Component {
   }
 }
 
-export default Review;
+export default ReviewPage;

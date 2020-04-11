@@ -46,33 +46,34 @@ const customIcons = {
     value: PropTypes.number.isRequired,
   };
 
-  function IconContainerAdmin(props) {
-    return <div className="iconContainer">
-              <IconButton className="reviewRectIconButton" aria-label="edit">
-                  <EditIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
-              </IconButton>
-              <IconButton className="reviewRectIconButton" aria-label="delete">
-                  <DeleteIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
-              </IconButton>
-            </div>;
-  }
-
   function IconContainerUser(props) {
-    return <div className="iconContainer">
-              <IconButton className="reviewRectIconButton" aria-label="edit">
+    if(localStorage.getItem("admin")){
+      return <div className="iconContainer">
+                <IconButton href={"../edit/review?id=" + props.id} className="reviewRectIconButton" aria-label="edit">
+                    <EditIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
+                </IconButton>
+                <IconButton className="reviewRectIconButton" aria-label="delete">
+                    <DeleteIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
+                </IconButton>
+              </div>;    
+    }
+    else {
+    return <div className="iconContainer" style={(props.user_id == localStorage.getItem("id")) ? null : {display: "none"}}>
+              <IconButton href={"../edit/review?id=" + props.id} className="reviewRectIconButton" aria-label="edit">
                   <EditIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
               </IconButton>
               <IconButton className="reviewRectIconButton" aria-label="delete">
                   <DeleteIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
               </IconButton>
             </div>;
-  }
+}  
+}
+
 
 
 class ReviewRect extends React.Component {
   constructor(props) {
     super(props);
-    this.handleEditDelete = this.handleEditDelete.bind(this);
     this.state = {
     };
   }
@@ -83,14 +84,7 @@ class ReviewRect extends React.Component {
         <div>
             <Avatar style={{backgroundColor: this.props.avatarColor, color: this.props.avatarFontColor, width: "45px", height: "45px"}} className="avatarRect">{this.props.initials}</Avatar>
             <p className="reviewAuthor">{this.props.user}</p>
-            <div className="iconContainer">
-              <IconButton className="reviewRectIconButton" aria-label="edit">
-                  <EditIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
-              </IconButton>
-              <IconButton className="reviewRectIconButton" aria-label="delete">
-                  <DeleteIcon style={{ fontSize: 30 }} className="reviewRectIcon" />
-              </IconButton>
-            </div>
+            <IconContainerUser id={this.props.id} user_id={this.props.user_id} />
         </div>
             <hr className="rectUnderline" />
             <Rating

@@ -80,8 +80,7 @@ class Profile extends React.Component {
         if(this.state.name === "" && this.state.lastname === "" && this.state.email === "" && this.state.password === "") {
           this.setState({
             show: true,
-            alertMsg: "All fields are required!",
-            alertType: "error",
+            alertMsg: "All fields are required!"
           });
         }
         else if (this.state.password.length < 6) {
@@ -99,10 +98,11 @@ class Profile extends React.Component {
           });
         }
         else {
-        fetch('http://localhost:5000/user/new',{
+        fetch('http://localhost:5000/user/profile/edit',{
           method: 'POST',
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({
+            id: localStorage.getItem("id"),
             name: this.state.name,
             lastname: this.state.lastname,
             email: this.state.email,
@@ -110,7 +110,7 @@ class Profile extends React.Component {
           })
         })
         .then(res => res.json())
-        .then(rows => (rows === false) ? this.handleEmailTaken(rows) : window.location.reload());
+        .then(response => this.handleResponse(response));
       }
   
       }

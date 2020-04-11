@@ -7,6 +7,7 @@ import MyReviewsPage from "./components/MyReviewsPage";
 import ProfilePage from "./components/ProfilePage";
 import ReviewsPage from "./components/ReviewsPage";
 import AllReviewsPage from "./components/AllReviewsPage";
+import ReviewEditPage from "./components/ReviewEditPage";
 
 
 
@@ -25,6 +26,7 @@ class App extends React.Component {
         <Route path="/" exact component={SearchPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/review" component={ReviewPage} />
+          <Route path="/edit/review" component={ReviewEditPage} />
           <Route path="/user/reviews" component={MyReviewsPage} />
           <Route path="/user/profile" component={ProfilePage} />
           <Route path="/reviews" component={ReviewsPage} />

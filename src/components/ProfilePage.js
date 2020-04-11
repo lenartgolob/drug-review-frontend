@@ -1,6 +1,5 @@
 import React from "react";
 import NavMenu from "./NavMenu";
-import { Redirect } from 'react-router';
 import Profile from "./Profile";
 
 import './components.scss';

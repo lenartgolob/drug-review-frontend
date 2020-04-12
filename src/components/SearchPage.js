@@ -8,12 +8,10 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Review from "./Review";
 import SearchIcon from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
 import './components.scss';
 
 const styles = {
   popupIndicatorOpen: {
-    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     display: "none"
   }
 };
@@ -22,7 +20,6 @@ class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.handleRecentReviews = this.handleRecentReviews.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
     this.keyPress = this.keyPress.bind(this);
     this.state = {
       drugs: [],
@@ -81,17 +78,6 @@ keyPress(e){
 
   }
 
-  handleSearch() {
-    if(this.state.drug === null) {
-
-    }
-    else {
-      localStorage.setItem('drug', this.state.drug);
-      window.location.href = "/reviews?drug=" + this.state.drug;
-
-    }
-  }
-
   render() {
     const { classes } = this.props;
 
@@ -103,7 +89,7 @@ keyPress(e){
       <div className="searchContainer">
         <Autocomplete
           openText={"Search"}
-          popupIcon={<Link className="searchLink" onClick={this.handleSearch}><SearchIcon /></Link>}
+          popupIcon={<a href={(this.state.drug === null) ? null : "/reviews?drug=" + this.state.drug}><SearchIcon /></a>}
           classes={{ popupIndicatorOpen: classes.popupIndicatorOpen }}          
           openOnFocus={true}
           onKeyDown={this.keyPress}

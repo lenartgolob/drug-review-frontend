@@ -66,7 +66,6 @@ class Review extends React.Component {
               className="rating"
               name="customized-icons"
               defaultValue={this.props.rating}
-              // getLabelText={(value) => customIcons[value].label}
               IconContainerComponent={IconContainer}
               readOnly 
             />

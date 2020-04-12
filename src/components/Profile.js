@@ -75,49 +75,18 @@ class Profile extends React.Component {
             password: ""
       });
     }
+    else if(response === "wrong_type") {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Invalid email!',
+      })
+      this.setState({
+        password: ""
+      })
     }
-  
-  //   keyPress(e){
-  //     if(e.keyCode === 13){
-  //       var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
-  //       if(this.state.name === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "") {
-  //         MySwal.fire({
-  //           icon: 'error',
-  //           title: 'All fields are required!',
-  //         })
-  //       }
-  //       else if (this.state.password.length < 6) {
-  //         MySwal.fire({
-  //           icon: 'error',
-  //           title: 'Password has to have atleast 6 characters!',
-  //         })
-  //       }
-  //       else if (emailValidation === false) {
-  //         MySwal.fire({
-  //           icon: 'error',
-  //           title: 'Invalid email!',
-  //         })
-  //       }
-  //       else {
-  //       fetch('http://localhost:5000/user/profile/edit',{
-  //         method: 'POST',
-  //         headers: {"Content-Type": "application/json"},
-  //         body: JSON.stringify({
-  //           id: localStorage.getItem("id"),
-  //           name: this.state.name,
-  //           lastname: this.state.lastname,
-  //           email: this.state.email,
-  //           password: this.state.password
-  //         })
-  //       })
-  //       .then(res => res.json())
-  //       .then(response => this.handleResponse(response));
-  //     }  
-  //     }
-  //  }
+    }
 
    handleProfile() {
-    var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
     if(this.state.name === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "") {
       MySwal.fire({
         icon: 'error',
@@ -128,12 +97,6 @@ class Profile extends React.Component {
       MySwal.fire({
         icon: 'error',
         title: 'Password has to have atleast 6 characters!',
-      })
-    }
-    else if (emailValidation === false) {
-      MySwal.fire({
-        icon: 'error',
-        title: 'Invalid email!',
       })
     }
     else {
@@ -158,29 +121,29 @@ class Profile extends React.Component {
     return (
     <div className="base-container">
         <Box className="profileBox" boxShadow={4}>
-        <div className="header">Edit profile</div>
-        <div className="content">
+        <div className="header headerProfile">Edit profile</div>
+        <div className="content profileContent">
           <div className="form">
-            <div className="form-group">
+            <div className="form-group form-groupFrom">
               <label htmlFor="namme">First name</label>
               <input type="text" value={this.state.name} name="name" placeholder="First name" onChange={this.handleChange} />
             </div>
-            <div className="form-group">
+            <div className="form-group form-groupFrom">
               <label htmlFor="namme">Last name</label>
               <input type="text" value={this.state.lastname} name="lastname" placeholder="Last name" onChange={this.handleChange} />
             </div>
-            <div className="form-group">
+            <div className="form-group form-groupFrom">
               <label htmlFor="email">Email</label>
               <input type="email" value={this.state.email} name="email" placeholder="email" onChange={this.handleChange} />
             </div>
-            <div className="form-group">
-              <label htmlFor="password">Password <span style={{fontSize: "50%"}}>(To confirm changes enter your password)</span></label>
+            <div className="form-group form-groupFrom">
+              <label htmlFor="password">Password <span className="confirmPassword">(To confirm changes enter your password)</span></label>
               <input type="password" value={this.state.password} name="password" placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
             </div>
           </div>
         </div>
-        <div className="footer">
-          <button type="button" style={{background: "#4A7EBB"}} className="btn" onClick={this.handleProfile}>
+        <div>
+          <button type="button" style={{background: "#4A7EBB", marginTop: 20}} className="btn btnProfile" onClick={this.handleProfile}>
             Save changes
           </button>
         </div>

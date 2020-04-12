@@ -2,6 +2,7 @@ import React from "react";
 import NavMenu from "./NavMenu";
 import ReviewRect from "./ReviewRect";
 import { Redirect } from 'react-router';
+// import Grid from '@material-ui/core/Grid';
 import './components.scss';
 
 

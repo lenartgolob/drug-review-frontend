@@ -8,7 +8,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
+import { withStyles } from '@material-ui/core/styles';
 import './components.scss';
+
+const styles = {
+  root: {
+    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    // display: "none"
+  }
+};
 
 
 class NavMenu extends React.Component {
@@ -109,9 +117,11 @@ class NavMenu extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
         <div className="root">
-        <AppBar  position="static">
+        <AppBar classes={{ root: classes.root }} position="static">
           <Toolbar>
             <IconButton href="/" edge="start" color="inherit" aria-label="menu" className="menuButton">
               <HomeIcon />
@@ -127,4 +137,4 @@ class NavMenu extends React.Component {
   }
 }
 
-export default NavMenu;
+export default withStyles(styles)(NavMenu)

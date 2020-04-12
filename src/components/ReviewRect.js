@@ -129,8 +129,7 @@ class ReviewRect extends React.Component {
               IconContainerComponent={IconContainer}
               readOnly 
             />
-            <p className="rectTime">10 hours ago</p>
-            <p className="reviewRectTitle"><span className="reviewRectComponentTitle">{this.props.title}</span><span className="reviewRectComponentParagraph"> review of </span><span className="reviewRectComponentTitle">{this.props.drugName}</span></p>
+            <p className="reviewRectTitle"><span className="reviewRectComponentTitle">{this.props.title}</span><span className="reviewRectComponentParagraph"> review of </span><span className="reviewRectComponentTitleName">{this.props.drugName}</span></p>
             <p className="reviewRectParagraph">{this.props.review}</p>
       </Box>
     );

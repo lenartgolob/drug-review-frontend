@@ -6,13 +6,23 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Review from "./Review";
+import SearchIcon from '@material-ui/icons/Search';
+import { withStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
 import './components.scss';
 
+const styles = {
+  popupIndicatorOpen: {
+    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    display: "none"
+  }
+};
 
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.handleRecentReviews = this.handleRecentReviews.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.keyPress = this.keyPress.bind(this);
     this.state = {
       drugs: [],
@@ -71,24 +81,37 @@ keyPress(e){
 
   }
 
+  handleSearch() {
+    if(this.state.drug === null) {
 
+    }
+    else {
+      localStorage.setItem('drug', this.state.drug);
+      window.location.href = "/reviews?drug=" + this.state.drug;
+
+    }
+  }
 
   render() {
+    const { classes } = this.props;
+
     return (
     <div className="container">
       <NavMenu />
       <h1 className="welcome">Welcome to drug review!</h1>
       <h4 className="subtitle">Read reviews. Write reviews. Find drugs.</h4>
+      <div className="searchContainer">
         <Autocomplete
-          forcePopupIcon={false}
-          // popupIcon={<SearchIcon />}
+          openText={"Search"}
+          popupIcon={<Link className="searchLink" onClick={this.handleSearch}><SearchIcon /></Link>}
+          classes={{ popupIndicatorOpen: classes.popupIndicatorOpen }}          
+          openOnFocus={true}
           onKeyDown={this.keyPress}
           onChange={(event, value) => this.setState({drug: value})}
           className="autocomplete"
           id="combo-box-demo"
           options={this.state.drugs}
           getOptionLabel={(option) => option}
-          style={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Search for drugs" variant="outlined" />}
         />
         <Button
@@ -100,6 +123,7 @@ keyPress(e){
         >
           Write Your Review
         </Button>
+      </div>
         <h2 className="recentReviewsTitle">Featured</h2>
         <hr className="underlineRecentReviews" />
         <div className="reviewRow">
@@ -147,5 +171,4 @@ keyPress(e){
     );
   }
 }
-
-export default SearchPage;
+export default withStyles(styles)(SearchPage)

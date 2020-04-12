@@ -2,7 +2,6 @@ import React from "react";
 import "./login/style.scss";
 import Login from "./login/login";
 import Register from "./login/register";
-import NavMenu from "./NavMenu";
 import './components.scss';
 
 
@@ -38,7 +37,6 @@ class LoginPage extends React.Component {
     const currentActive = isLogginActive ? "login" : "register";
     return (
       <div className="container" >
-        <NavMenu hide="true" />
         <div className="App">
           <div className="login">
             <div className="container" ref={ref => (this.container = ref)}>

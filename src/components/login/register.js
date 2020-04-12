@@ -9,9 +9,7 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.handleRegistration = this.handleRegistration.bind(this);
-    this.handleEmailTaken = this.handleEmailTaken.bind(this);
-    this.keyPress = this.keyPress.bind(this);
-
+    this.handleResponse = this.handleResponse.bind(this);
     this.state = {
       email: '',
       password: '',
@@ -28,54 +26,33 @@ class Register extends React.Component {
     });
   }
 
-  handleEmailTaken(rows) {
-    MySwal.fire({
-      icon: 'error',
-      title: 'Email is already taken!',
-    })
+  handleResponse(response) {
+    if(response === false) {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Email is already taken!',
+      })
+      this.setState({
+        email: "",
+        password: ""
+      })
     }
-  
-  //   keyPress(e){
-  //     if(e.keyCode === 13){
-  //       var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
-  //       if(this.state.name === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "") {
-  //         MySwal.fire({
-  //           icon: 'error',
-  //           title: 'All fields are required!',
-  //         })
-  //       }
-  //       else if (this.state.password.length < 6) {
-  //         MySwal.fire({
-  //           icon: 'error',
-  //           title: 'Password has to have atleast 6 characters!',
-  //         })
-  //       }
-  //       else if (emailValidation === false) {
-  //         MySwal.fire({
-  //           icon: 'error',
-  //           title: 'Invalid email!',
-  //         })
-  //       }
-  //       else {
-  //       fetch('http://localhost:5000/user/new',{
-  //         method: 'POST',
-  //         headers: {"Content-Type": "application/json"},
-  //         body: JSON.stringify({
-  //           name: this.state.name,
-  //           lastname: this.state.lastname,
-  //           email: this.state.email,
-  //           password: this.state.password
-  //         })
-  //       })
-  //       .then(res => res.json())
-  //       .then(rows => (rows === false) ? this.handleEmailTaken(rows) : window.location.reload());
-  //     }
-  
-  //     }
-  //  }
+    else if(response === "wrong_type") {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Invalid email!',
+      })
+      this.setState({
+        email: "",
+        password: ""
+      })
+    }
+    else {
+      window.location.reload()
+    }
+  }
 
   handleRegistration() {
-    var emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
     if(this.state.name === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "") {
       MySwal.fire({
         icon: 'error',
@@ -87,11 +64,8 @@ class Register extends React.Component {
         icon: 'error',
         title: 'Password has to have atleast 6 characters!',
       })
-    }
-    else if (emailValidation === false) {
-      MySwal.fire({
-        icon: 'error',
-        title: 'Invalid email!',
+      this.setState({
+        password: "",
       })
     }
     else {
@@ -106,7 +80,7 @@ class Register extends React.Component {
       })
     })
     .then(res => res.json())
-    .then(rows => (rows === false) ? this.handleEmailTaken(rows) : window.location.reload());
+    .then(response => this.handleResponse(response));
   }
   }
 
@@ -121,19 +95,19 @@ class Register extends React.Component {
           <div className="form">
             <div className="form-group">
               <label htmlFor="namme">First name</label>
-              <input type="text" name="name" placeholder="First name" onChange={this.handleChange} />
+              <input type="text" value={this.state.name} name="name" placeholder="First name" onChange={this.handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="namme">Last name</label>
-              <input type="text" name="lastname" placeholder="Last name" onChange={this.handleChange} />
+              <input type="text" value={this.state.lastname} name="lastname" placeholder="Last name" onChange={this.handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" placeholder="email" onChange={this.handleChange} />
+              <input type="email" name="email" value={this.state.email} placeholder="email" onChange={this.handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
+              <input type="password" name="password" value={this.state.password} placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
             </div>
           </div>
         </div>

@@ -1,13 +1,15 @@
 import React from "react";
-import loginImg from "../../login.svg";
 import { withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { Redirect } from 'react-router';
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
+import './components.scss';
 
 const MySwal = withReactContent(Swal)
 
-export class Login extends React.Component {
+export class MobileLogin extends React.Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -130,30 +132,30 @@ export class Login extends React.Component {
     }
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <div className="header">Login</div>
-          <div className="content">
-            <div className="image">
-              <img src={loginImg} className="loginImg" alt="loginImg" />
+        <Box className="loginBox" boxShadow={4}>
+            <div className="header">Login</div>
+            <div className="content">
+                <div className="form">
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input className="inputMobile" type="email" value={this.state.email} name="email" placeholder="email" onChange={this.handleChange} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input className="inputMobile" type="password" name="password" value={this.state.password} placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
+                </div>
+                </div>
             </div>
-            <div className="form">
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input type="email" value={this.state.email} name="email" placeholder="email" onChange={this.handleChange} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" value={this.state.password} placeholder="password" onChange={this.handleChange} onKeyDown={this.keyPress} />
-              </div>
+            <div className="footer">
+                <button className="btn" style={{background: "#4A7EBB", marginBottom: 15}} onClick={this.handleLogin}>
+                Login
+                </button><br />
+                <Link href="/register/mobile">Register here</Link>
             </div>
-          </div>
-          <div className="footer">
-            <button className="btn" style={{background: "#4A7EBB"}} onClick={this.handleLogin}>
-              Login
-            </button>
-          </div>
+        </Box>
       </div>
     );
   }
 }
 
-export default withRouter(Login);
+export default withRouter(MobileLogin);

@@ -154,7 +154,7 @@ class ReviewPage extends React.Component {
       <NavMenu />
       <div className="reviewContainer">
         <p className="reviewTitle">Your first-hand experiences really helps other patients. Thanks!</p>
-        <hr className="underlineReview" />
+        <hr className="underlineReviewPage" />
         <form noValidate autoComplete="off">
           <Autocomplete
             onChange={(event, value) => this.setState({drug: value})}
@@ -189,15 +189,17 @@ class ReviewPage extends React.Component {
             rows="4"
             variant="outlined"
           />
-          <Button
-            variant="contained"
-            color="primary"
-            endIcon={<SendIcon />}
-            className="reviewSubmit"
-            onClick={this.handleSubmit}
-          >
-            Submit your review
-          </Button>
+          <div style={{textAlign: "right", marginBottom: 35}}>
+            <Button
+              variant="contained"
+              color="primary"
+              endIcon={<SendIcon />}
+              className="reviewSubmit"
+              onClick={this.handleSubmit}
+            >
+              Submit your review
+            </Button>
+          </div>
         </form>
       </div>
     </div>

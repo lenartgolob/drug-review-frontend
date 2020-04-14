@@ -16,6 +16,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
 
+  componentDidMount() {
+    document.title = 'Drug Review';
+  }
+
   render() {
 
     return (

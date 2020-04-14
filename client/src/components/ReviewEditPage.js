@@ -80,7 +80,7 @@ class ReviewEditPage extends React.Component {
         var id = params.id;
         this.setState({id: id});
 
-        fetch('http://localhost:5000/edit/review',{
+        fetch('https://drug-review-backend.herokuapp.com/edit/review',{
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -123,7 +123,7 @@ class ReviewEditPage extends React.Component {
     console.log(this.state.review)
 
     if(this.state.drug !== "" && this.state.rating !== null && this.state.title !== "" && this.state.review !== "" && this.state.drug !== null) {
-      fetch('http://localhost:5000/review/edit',{
+      fetch('https://drug-review-backend.herokuapp.com/review/edit',{
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({

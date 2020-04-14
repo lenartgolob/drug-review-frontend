@@ -21,7 +21,7 @@ class ReviewsPage extends React.Component {
     var drug = params.drug;
     this.setState({drug: drug})
 
-    fetch('http://localhost:5000/reviews',{
+    fetch('https://drug-review-backend.herokuapp.com/reviews',{
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({

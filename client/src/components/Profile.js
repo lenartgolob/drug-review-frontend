@@ -20,7 +20,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:5000/user/profile',{
+    fetch('https://drug-review-backend.herokuapp.com/user/profile',{
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -100,7 +100,7 @@ class Profile extends React.Component {
       })
     }
     else {
-    fetch('http://localhost:5000/user/profile/edit',{
+    fetch('https://drug-review-backend.herokuapp.com/user/profile/edit',{
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({

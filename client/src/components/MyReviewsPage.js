@@ -23,7 +23,7 @@ class MyReviewsPage extends React.Component {
       this.setState({ redirect: true })
     }
     else {
-    fetch('http://localhost:5000/my/reviews',{
+    fetch('https://drug-review-backend.herokuapp.com/my/reviews',{
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({

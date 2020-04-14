@@ -14,7 +14,7 @@ class AllReviewsPage extends React.Component {
 
   componentDidMount() {
 
-    fetch('http://localhost:5000/all/reviews')
+    fetch('https://drug-review-backend.herokuapp.com/all/reviews')
       .then(res => res.json())
       .then(reviews => this.handleReviews(reviews));
 

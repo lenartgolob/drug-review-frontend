@@ -34,7 +34,7 @@ export class MobileLogin extends React.Component {
 
   keyPress(e){
     if(e.keyCode === 13){
-      fetch('http://localhost:5000/user/session',{
+      fetch('https://drug-review-backend.herokuapp.com/user/session',{
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -79,7 +79,7 @@ export class MobileLogin extends React.Component {
 
   handleLogin() {
 
-    fetch('http://localhost:5000/user/session',{
+    fetch('https://drug-review-backend.herokuapp.com/user/session',{
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({

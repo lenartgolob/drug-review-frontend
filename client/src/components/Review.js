@@ -51,7 +51,7 @@ class Review extends React.Component {
   }
 
   componentDidMount() {
-    // const url = "http://localhost:5000/api/customers";
+    // const url = "https://drug-review-backend.herokuapp.com/api/customers";
 
     // fetch(url)
     //   .then(res => res.json())

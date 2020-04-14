@@ -49,7 +49,7 @@ class SearchPage extends React.Component {
             })
         });
 
-        fetch('http://localhost:5000/reviews/recent')
+        fetch('https://drug-review-backend.herokuapp.com/reviews/recent')
         .then(res => res.json())
         .then(reviews => this.handleRecentReviews(reviews));
           

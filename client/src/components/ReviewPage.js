@@ -103,7 +103,7 @@ class ReviewPage extends React.Component {
     console.log(this.state.review)
 
     if(this.state.drug !== "" && this.state.rating !== null && this.state.title !== "" && this.state.review !== "") {
-      fetch('http://localhost:5000/review/new',{
+      fetch('https://drug-review-backend.herokuapp.com/review/new',{
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({

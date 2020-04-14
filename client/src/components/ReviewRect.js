@@ -70,7 +70,7 @@ class ReviewRect extends React.Component {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        fetch('http://localhost:5000/review/delete',{
+        fetch('https://drug-review-backend.herokuapp.com/review/delete',{
           method: 'POST',
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({

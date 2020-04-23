@@ -7,7 +7,7 @@ You can search and write reviews for over 700 different medications. Search bar 
 
 ## Preview
 
-![https://drug-review-frontend.herokuapp.com/](https://raw.githubusercontent.com/lenartgolob/nepremicnine/master/img/about/2019-10-08-11-57-lenartgolob.com.png)
+![https://drug-review-frontend.herokuapp.com/](https://raw.githubusercontent.com/lenartgolob/nepremicnine/master/client/src/assets/preview.png)
 
 
 **[View Live Preview](https://drug-review-frontend.herokuapp.com/)**
